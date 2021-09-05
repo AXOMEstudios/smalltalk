@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@800&display=swap');
+
+.custom-shape-divider-bottom-1630748410 {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1630748410 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 69px;
+}
+
+.custom-shape-divider-bottom-1630748410 .shape-fill {
+    fill: #0066FF;
+}
+
+.blue {
+  background-color: #0066FF !important;
+  color: white !important;
+}
+
+.bigfont {
+  font-family: 'Merriweather Sans', sans-serif;
+  color: black;
+  font-size: 4em;
+}
+
+.slightround {
+  border-radius: 2em !important;
+}
+
+.notransform {
+  transform: rotate(0deg) !important;
+}

@@ -15,19 +15,25 @@ def index():
     session["username"]
     return render_template("st.html",mails=db[session["username"]]["msg"],count=len(db[session["username"]]["msg"]))
   except KeyError:
-    return render_template("index.html")
+    return render_template("index.html", users=len(db.keys()))
     
-@app.route("/login/",methods=["GET","POST"])
+@app.route("/login",methods=["GET","POST"])
 def login():
   username = auth.login(request.args.get("usr"))
   session["username"] = username
   if not username in list(db.keys()):
-    return "<script>alert('This user does not exist. Create it!');document.location.href = '/signup/';</script>"
-  if sha512(password.encode()).hexdigest() == db[username]["pw"]:
-    session["username"] = username
-    return redirect("/")
-  else:
-    return "<script>alert('The given password is wrong.');document.location.href='/';</script>"
+    db[username] = {
+      "msg": [
+        {
+          "sub": "Welcome to Smalltalk!",
+          "meta": "",
+          "from": "Smalltalk",
+          "text": "Welcome to Smalltalk! Your account has been created successfully and you are now able to send, receive and managa mails! Thanks for signing up, your Smalltalk team.",
+          "id": 0
+        }
+      ]
+    }
+  return redirect("/")
     
 @app.route("/st/")
 def smalltalk():

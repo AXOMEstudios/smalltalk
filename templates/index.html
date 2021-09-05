@@ -1,78 +1,121 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Log in to smalltalk</title>
+    <title>Smalltalk</title>
     <link rel="icon" href="/static/icon.png">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
-      * {
-        font-family: "Overpass", Sans-Serif;
-      }
-      body {
-        padding: 0;
-        margin: 0;
-        background-image: url("/static/background.jpeg");
-        background-size: 130%;
-        background-repeat: no-repeat;
-      }
-      header {
-        margin: 0;
-        background-color: #454545;
-        display: inline-block;
-        width: 95.5%;
-        padding: 15px;
-        box-shadow: 0 0 30px;
-        padding-left: 40px;
-      }
-      .logo {
-        width: 70px;
-        height: 70px;
-        display: inline-block;
-      }
-      main {
-        background-color: white;
-        border-radius: 15px;
-        padding: 15px;
-        box-shadow: 0 0 30px white;
-        width: 50%;
-        text-align: center;
-        font-size: 20px;
-        margin-left: 25%;
-        margin-top: 10%;
-      }
-      form {
-        font-size: 20px;
-      }
-      .input {
-        width: 90%;
-        padding: 10px;
-        font-size: 20px;
-        border-radius: 15px;
-        margin: 10px;
-      }
-      .button {
-        all: unset;
-        width: 90%;
-        padding: 10px;
-        font-size: 20px;
-        border-radius: 15px;
-        border: 2px solid dodgerBlue;
-        box-shadow: 0 0 15px dodgerBlue;
-        margin: 10px;
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <header>
-      <img src="/static/icon.png" class="logo">
-    </header>
-    <main>
-      <form action="/login/" method="post">
-        <input name="username" class="input" placeholder="Username"><br>
-        <input name="password" class="input" placeholder="Password" type="password"><br>
-        <input type="submit" class="button" value="Log In"><br>
-      </form>
-      <a href="/signup/">No account? Sign up here.</a>
-    </main>
+    <script src="/static/script.js"></script>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/static/icon.png" width="28" height="28">
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/">
+        Home
+      </a>
+
+      <a class="navbar-item" href="/">
+        About
+      </a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" href="https://auth.axome.de/signin?url=https%3A%2F%2Fsmalltalk.axome.repl.co%2Flogin">
+            <strong>Sign in</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="section">
+  <div class="columns is-vcentered">
+  <div class="column">
+  <h1 class="bigfont">
+    Welcome to Smalltalk.
+  </h1></div><div class="column">
+    <img src="/static/frontimg.png" class="slightround">
+  </div></div>
+</div>
+
+<div class="custom-shape-divider-bottom-1630748410">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+</div>
+
+<div class="blue has-text-white">
+  <section class="section">
+    <h1 class="title has-text-white">Mailing. Simpler than ever before.</h1>
+    <h2 class="subtitle has-text-white">
+      Imagine the middle between mailing and messaging. Imagine Smalltalk. The place to chat and communicate as simple as instant messaging, with the benefits of mail.
+    </h2>
+  </section>
+  <section class="section">
+    <h1 class="title has-text-white">Centralized. Open Source.</h1>
+    <h2 class="subtitle has-text-white">
+      Smalltalk is open to everyone. It's open source, meaning everyone can suggest ideas or read what Smalltalk does.
+    </h2>
+  </section>
+  <section class="section">
+    <h1 class="title has-text-white">Secure. Ready to use.</h1>
+    <h2 class="subtitle has-text-white">
+      Smalltalk is more secure as mailing: messages are getting sent via SSL-Encryption right in your browser and no one can fake mail addresses.
+    </h2>
+  </section>
+  <section class="section has-text-centered">
+    <h1 class="bigfont has-text-white">
+      Ready? Go!
+    </h1>
+    <h2 class="title has-text-white">
+      Smalltalk is immediately ready to use. Just sign in with your AXOME account. Done.
+    </h2>
+    <a class="button slightround is-success py-5 px-5 title" href="https://auth.axome.de/signin?url=https%3A%2F%2Fsmalltalk.axome.repl.co%2Flogin">
+      Start for free
+    </a>
+  </section>
+</div>
+
+<div class="custom-shape-divider-bottom-1630748410 notransform">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+</div>
+
+<section class="section has-text-centered">
+  <h1 class="bigfont">
+    Statistics
+  </h1>
+  <h1 class="bigfont" id="users">
+    {{users}}
+  </h1>
+  <h1 class="title" style="font-family: 'Merriweather Sans', sans-serif;">
+    users so far
+  </h1>
+</section>
+
+<section class="footer has-text-centered">
+  <p>
+    Copyright 2021 <a href="http://axome.de/">AXOME</a>. <a href="https://github.com/AXOMEstudios/smalltalk">GitHub</a>
+  </p>
+</section>
+
   </body>
 </html>
