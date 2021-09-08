@@ -3,11 +3,11 @@
   <head>
     <title>smalltalk</title>
     <link rel="icon" href="/static/icon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
-      * {
-        font-family: "Overpass", Sans-Serif;
-      }
+      /*@import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
       body {
         padding: 0;
         margin: 0;
@@ -70,15 +70,7 @@
         text-align: end;
         margin: 5px;
       }
-      button {
-        all: unset;
-        padding: 3px;
-        font-size: 15px;
-        border-radius: 15px;
-        border: 2px solid dodgerBlue;
-        box-shadow: 0 0 15px dodgerBlue;
-        margin: 5px;
-      }
+      
       #spread {
         padding: 1%;
         margin: 2%;
@@ -88,21 +80,38 @@
         border-radius: 30px;
         text-align: center;
         box-shadow: 0 0 30px dodgerBlue;
-      }
+      }*/
     </style>
   </head>
   <body>
-    <header>
-      <img src="/static/icon.png" class="logo">
-      <a href="/logout/" class="newkit"><img src="/static/logout.png" width="5%" height="5%" style="width: auto; height: 5vw;"></a>
-      <a href="/st/new/" class="newkit"><img src="/static/newTalk.png" width="5%" height="5%" style="width: 5vw; height: 5vw;"></a>
-    </header>
-    <div id="spread">
-      <h4>Wonderful to see you here! <a onclick="closeSpread()">[ Close ]</a></h4>
-      <p>Help us spreading smalltalk to everyone for creating a web of instant mailing users! <a href="mailto:?subject=Smalltalk">Spread with mail</a></p>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/static/icon.png" width="28" height="28">
+    </a>
+  </div>
+
+  <div id="navbarBasicExample is-active" class="navbar-menu">
+    <div class="navbar-start">
     </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-success" href="/st/new">
+            <strong>New Mail</strong>
+          </a>
+          <a class="button is-danger" href="/logout/">
+            Log out
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
     <h1 id="welcome" style="margin: 2%; font-size: 5vw;"></h1>
-    <p style="margin: 2%; font-size: 2vw;">Welcome back to smalltalk! You have {{count}} Mails in your inbox.</p>
+    <p style="margin: 2%; font-size: 2vw;">Welcome back to smalltalk! You have {{count}} Mail(s) in your inbox.</p>
     <script>
       var d = new Date();
       var n = d.getHours();
@@ -118,6 +127,8 @@
         w.innerHTML = "Great evening!";
       } else if (n >= 22 && n <= 5) {
         w.innerHTML = "Enjoy the night!";
+      } else {
+        w.innerHTML = "Greetings!";
       }
       
       function closeSpread() {
@@ -125,31 +136,44 @@
       }
     </script>
     <main>
-    <img id="cm" style="display: none; width: 2%; height: 2%; margin: 1% 0 1% 97%" onclick="closeMailView()" src="/static/FAIL.png">
-      <iframe style="display: none; width: 100%; height: 30vh; background-color: white; border-radius: 15px;" id="mfr" src=""></iframe>
-      <a id="fs" style="text-align: end; display: none; text-decoration: none;" target="_blank" href="">Open in new tab</a>
+<div class="modal" id="reader">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Mail reader</p>
+      <button class="delete" aria-label="close" onclick="closeMailView()"></button>
+    </header>
+    <section class="modal-card-body">
+      <iframe style="width: 100%; height: 70vh;" id="mfr" src=""></iframe>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" onclick="closeMailView()">Close</button>
+      <a id="fs" class="button is-light is-link" target="_blank" href="">Open in new tab</a>
+    </footer>
+  </div>
+</div>
     <script>
 function closeMailView() {
   var frame = document.getElementById("mfr");
   frame.style.display = "none";
   fs = document.getElementById("fs");
   fs.style.display = "none";
-    var cmb = document.getElementById("cm");
+    var cmb = document.getElementById("reader");
   cmb.style.display = "none";
 }
 
 function readMail(i) {
-  var cmb = document.getElementById("cm");
+  var cmb = document.getElementById("reader");
   cmb.style.display = "block";
   var frame = document.getElementById("mfr");
   frame.src = "/r/"+i.toString();
   frame.style.display = "block";
   window.scrollTo(0,0);
-  document.getElementById(i.toString()).style.backgroundColor = "lightgreen";
   fs = document.getElementById("fs");
   fs.href = "/r/"+i.toString();
   fs.style.display = "block";
 }
+
 function removeMail(i) {
   if (confirm("Would you really like to remove this mail?")) {
     document.location.href = "/del/"+i.toString();
@@ -159,12 +183,16 @@ function replyMail(i) {
   document.location.href = "/rep/"+i.toString();
 }
     </script>
+    <div class="section">
       {% for i in  mails %}
-      <div class="kitbox" id="{{i['id']}}">
-        <div style="text-align: start;">
-        {{i["sub"]}} <button onclick="readMail({{i['id']}})">READ</button>
-        <button onclick="removeMail({{i['id']}})">REMOVE</button>
-        <button onclick="replyMail({{i['id']}})">REPLY</button>
+      <div class="columns" id="{{i['id']}}">
+        <div class="column is-fullwidth is-vcentered">
+          <strong class="subtitle">{{i["sub"]}}</strong>
+        </div>
+        <div class="column">
+          <button onclick="readMail({{i['id']}})" class="button is-primary">READ</button>
+          <button onclick="removeMail({{i['id']}})" class="button is-danger">REMOVE</button>
+          <button onclick="replyMail({{i['id']}})" class="button is-info">REPLY</button>
         </div>
       </div>
       {% endfor %}
@@ -172,6 +200,7 @@ function replyMail(i) {
       <h2 color="grey">No new mails!</h2>
       <img src="/static/EmptyBox.png" style="width: 30%; height: 30%">
       {% endif %}
+      </div>
     </main>
   </body>
 </html>

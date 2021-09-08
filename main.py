@@ -108,39 +108,12 @@ def readMail(mid):
   <head>
     <title>Mail reader</title>
     <link rel="icon" href="/static/icon.png">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
-      * {
-        font-family: "Overpass", Sans-Serif;
-      }
-      body {
-        padding: 0;
-        margin: 0;
-        background-size: 100%;
-        background-repeat: no-repeat;
-      }
-      main {
-        background-color: white;
-        text-align: start;
-        color: black;
-        padding: 15px;
-      }
-      .button {
-        all: unset;
-        width: 90%;
-        padding: 10px;
-        font-size: 20px;
-        border-radius: 15px;
-        border: 2px solid dodgerBlue;
-        box-shadow: 0 0 15px dodgerBlue;
-        margin: 10px;
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   </head>
   <body>
-    <main>
-      <h2>'''+i["sub"]+'''</h2>
-      <h3>From: '''+i["from"]+''', sent at: '''+i["meta"]+'''</h3>
+    <main class="section">
+      <h2 class="title">'''+i["sub"]+'''</h2>
+      <h3 class="subtitle">From: '''+i["from"]+''', sent at: '''+i["meta"]+'''</h3>
       <hr>
       <p>'''+i["text"].replace("\n","<br>")+'''</p>
       </main>
