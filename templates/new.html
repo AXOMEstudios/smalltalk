@@ -3,85 +3,89 @@
   <head>
     <title>New talk</title>
     <link rel="icon" href="/static/icon.png">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
-      * {
-        font-family: "Overpass", Sans-Serif;
-      }
-      body {
-        padding: 0;
-        margin: 0;
-        background-image: url("/static/background.jpeg");
-        background-size: 130%;
-        background-repeat: no-repeat;
-      }
-      header {
-        margin: 0;
-        background-color: #454545;
-        display: inline-block;
-        width: 95.5%;
-        padding: 15px;
-        box-shadow: 0 0 30px;
-        padding-left: 40px;
-      }
-      .logo {
-        width: 70px;
-        height: 70px;
-      }
-      main {
-        background-color: white;
-        border-radius: 15px;
-        padding: 15px;
-        box-shadow: 0 0 30px white;
-        width: 50%;
-        text-align: center;
-        font-size: 20px;
-        margin-left: 25%;
-        margin-top: 10%;
-      }
-      form {
-        font-size: 20px;
-      }
-      .input {
-        width: 90%;
-        padding: 10px;
-        font-size: 20px;
-        border-radius: 15px;
-        margin: 10px;
-      }
-      .button {
-        all: unset;
-        width: 90%;
-        padding: 10px;
-        font-size: 20px;
-        border-radius: 15px;
-        border: 2px solid dodgerBlue;
-        box-shadow: 0 0 15px dodgerBlue;
-        margin: 10px;
-      }
-      textarea {
-        width: 95%;
-        font-size: 15px;
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   </head>
   <body>
-    <header>
-      <img src="/static/icon.png" class="logo">
-    </header>
-    <main>
-      <form action="/st/post/" method="POST">
-      <input type="text" name="subject" placeholder="Subject" style="width: 95%" value="{{sub}}"><br>
-      <input type="to" name="to" placeholder="Receiver" style="width: 95%" value="{{rec}}" list="addressbook">
-      <datalist id="addressbook">
-        {% for i in users %}
-        <option value="{{i}}">
-        {% endfor %}
-      </datalist>
-        <textarea name="txt" rows="10" placeholder="Write your message here...">{{text}}</textarea>
-        <input type="submit" value="Send" class="button">
-      </form>
-      <a href="/st/">Cancel</a>
+    
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="/static/icon.png" width="28" height="28">
+      </a>
+  </div>
+
+  <div id="navbarBasicExample is-active" class="navbar-menu">
+    <div class="navbar-start">
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-success is-rounded" href="/st/new">
+            <strong>New Mail</strong>
+          </a>
+          <a class="button is-danger is-rounded" href="/logout/">
+            Log out
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+    
+    <main class="section">
+      <h1 class="title">New mail</h1>
+      {% if rec %}
+      
+        <h2 class="subtitle">
+          This mail goes to {{rec}}.
+        </h2>
+      
+      {% endif %}
+      <form action="/st/post/" method="POST" id="message">
+        <div class="columns is-mobile">
+          <div class="column is-fullwidth is-vcentered">
+            <input type="text" name="to" placeholder="Receiver" value="{{rec}}" class="input is-link"><br>
+          </div>
+          <div class="column">
+          <button type="submit" class="button is-primary is-rounded px-2 py-2"><span class="material-icons">send</span></button>
+          <button type="button" class="button is-rounded is-danger px-2 py-2" onclick="cancel()"><span class="material-icons">close</span></button></div>
+        </div>
+        <input type="to" name="subject" placeholder="Subject" value="{{sub}}" class="input is-primary" {% if rec %}style="display: none;"{% endif %}>
+        <textarea name="txt" rows="10" placeholder="Write your message here..." style="display: none;" id="txtwrite"></textarea>
+      </form><br>
+<div id="editor">
+  {{text}}
+</div>
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+var quill = new Quill('#editor', {
+  theme: 'snow'
+});
+  
+quill.on('text-change', function(delta, oldDelta, source) {
+  document.getElementById("txtwrite").value = JSON.stringify(quill.getContents());
+});
+</script>
+
     </main>
+    
+    <script>
+      function cancel(e) {
+        document.location.href = "/st/";
+      }
+      
+      function send(e) {
+        e.preventDefault();
+        
+        document.getElementById("message").submit();
+      }
+    </script>
   </body>
 </html>
